@@ -21,12 +21,19 @@ namespace Sea {
 
     bool Object::intersectsWith(Object const & otherObject) const
     {
-        // TODO Aufgabe 2:
-        //  Nutzt die Funktion `atCoordinates(..)`, um zu bestimmen, ob sich dieses und das übergebene Objekt (`otherObject`) überschneiden.
+        for (int i = 0; i < otherObject.size; i++) {
+            if (otherObject.orientation == Sea::Orientation::X) {
+                if (atCoordinates(Coordinates(otherObject.x + i, otherObject.y))) {
+                    return true;
+                }
+            }
+            else {
+                if (atCoordinates(Coordinates(otherObject.x, otherObject.y + i))) {
+                    return true;
+                }
+            }
+        }
         return false;
-        /*
-         ???
-         */
     }
 
 }
