@@ -10,12 +10,13 @@ namespace Sea {
 
     bool Object::atCoordinates(Coordinates const & coordinates) const
     {
-        // TODO Aufgabe 2:
-        //  Nutzt die Funktionalität von `Coordinates`, um zu bestimmen, ob ein Teil dieses Objekts auf den übergebenen Koordinaten (`coordinates`) liegt.
+        if (orientation == Sea::Orientation::X) {
+            return (getY() == coordinates.getY() && getX() <= coordinates.getX() && (getX() + size) > coordinates.getX());
+        }
+        else if (orientation == Sea::Orientation::Y) {
+            return (getX() == coordinates.getX() && getY() <= coordinates.getY() && (getY() + size) > coordinates.getY());
+        }
         return false;
-        /*
-         ???
-         */
     }
 
     bool Object::intersectsWith(Object const & otherObject) const

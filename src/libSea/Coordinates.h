@@ -1,5 +1,5 @@
-#ifndef BLATT3_COORDINATES_H
-#define BLATT3_COORDINATES_H
+#ifndef BATTLESHIP_COORDINATES_H
+#define BATTLESHIP_COORDINATES_H
 
 
 namespace Sea {
@@ -21,4 +21,4 @@ namespace Sea {
 }
 
 
-#endif //BLATT3_COORDINATES_H
+#endif

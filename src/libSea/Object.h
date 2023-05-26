@@ -1,5 +1,5 @@
-#ifndef BLATT3_OBJECT_H
-#define BLATT3_OBJECT_H
+#ifndef BATTLESHIP_OBJECT_H
+#define BATTLESHIP_OBJECT_H
 
 
 #include "Coordinates.h"
