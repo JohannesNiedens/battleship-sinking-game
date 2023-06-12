@@ -1,58 +1,67 @@
 #include "game.h"
 
-// TODO Aufgabe 7:
-//  Bringe die `include`- und `using`-Anweisungen in eine sinnvolle Ordnung.
-#include "Coordinates.h"
-#include "PlayerSea.h"
-using GameObjects::PlayerSea;
 #include <iostream>
-#include <vector>
+using std::cin;
 using std::cout;
 using std::endl;
-using Sea::Coordinates;
+
+#include <vector>
 using std::vector;
+
+#include "Coordinates.h"
+using Sea::Coordinates;
+
+#include "PlayerSea.h"
+using GameObjects::PlayerSea;
+
 #include "init.h"
-using std::cin;
 
 
-// TODO Aufgabe 7:
-//  Zerlege die Funktion `gameLoop(..)` in sinnvolle, kürzere Teilfunktionen.
 void gameLoop(vector<PlayerSea> & playerSeas)
 {
-    cout << endl << "Los geht's!" << endl;
+    cout << endl << "Let's start!" << endl;
     for (unsigned int round = 0;; ++round) {
         PlayerSea & currentPlayerSea = playerSeas[round % 2];
         PlayerSea & otherPlayerSea = playerSeas[(round + 1) % 2];
 
-        Coordinates targetCoordinates = inputMissileTargetCoordinates(currentPlayerSea);
-        bool hit = currentPlayerSea.sendMissileTo(otherPlayerSea, targetCoordinates);
-        if (hit) {
-            cout << "Treffer!" << endl;
-        }
-        else {
-            cout << "Daneben!" << endl;
-        }
+        gameTurn(currentPlayerSea, otherPlayerSea);
 
-        bool gameFinished = false;
-        if (otherPlayerSea.allShipsDestroyed()) {
-            cout << "Das letzte Schiff von " << otherPlayerSea.getPlayerName() << " ist versenkt. "
-                 << currentPlayerSea.getPlayerName() << " hat gewonnen." << endl;
-            gameFinished = true;
-        }
-        if (gameFinished) {
+        if (checkGameFinished(currentPlayerSea, otherPlayerSea)) {
             break;
         }
     }
 }
 
+void gameTurn(PlayerSea & currentPlayerSea, PlayerSea & otherPlayerSea)
+{
+    Coordinates targetCoordinates = inputMissileTargetCoordinates(currentPlayerSea);
+    bool hit = currentPlayerSea.sendMissileTo(otherPlayerSea, targetCoordinates);
+
+    if (hit) {
+        cout << "Hit!" << endl;
+    } else {
+        cout << "Miss!" << endl;
+    }
+}
+
+bool checkGameFinished(PlayerSea & currentPlayerSea, PlayerSea & otherPlayerSea)
+{
+    if (otherPlayerSea.allShipsDestroyed()) {
+        cout << "THe last ship from " << otherPlayerSea.getPlayerName() << "is sunken. "
+             << currentPlayerSea.getPlayerName() << "has won." << endl;
+        return true;
+    }
+    return false;
+}
+
 Coordinates inputMissileTargetCoordinates(PlayerSea const & currentPlayerSea)
 {
     while (true) {
-        cout << endl << currentPlayerSea.getPlayerName() << " zielt auf" << endl;
+        cout << endl << currentPlayerSea.getPlayerName() << " aims to " << endl;
         Coordinates targetCoordinates = inputCoordinates();
 
         if (currentPlayerSea.missileAlreadySentTo(targetCoordinates)) {
-            cout << "Diese Koordinaten hast du schon probiert." << endl;
+            cout << "You already tried this Coordinate." << endl;
             continue;
         }
         return targetCoordinates;
