@@ -9,4 +9,4 @@ bool testMissile();
 bool testShip();
 
 
-#endif //BLATT3_TEST_H
+#endif
