@@ -51,9 +51,7 @@ void initializeShips(PlayerSea & playerSea)
 {
     cout << "Place your ships in the water (" << PlayerSea::printSeaArea() << ")." << endl;
 
-    for (unsigned int shipIdx = 0; shipIdx < Constants::shipSizes.size(); ++shipIdx) {
-        unsigned int size = Constants::shipSizes[shipIdx];
-
+    for (unsigned int size : Constants::shipSizes) {
         while (!initializeShip(playerSea, size));
     }
     for (unsigned int i = 0; i < 20; ++i) {
@@ -78,7 +76,7 @@ Ship inputShip(unsigned int size)
     Coordinates coordinates = inputCoordinates();
     Orientation orientation = inputOrientation();
 
-    return Ship(coordinates, size, orientation);
+    return {coordinates, size, orientation};
 }
 
 Coordinates inputCoordinates()
@@ -88,7 +86,7 @@ Coordinates inputCoordinates()
         cout << "  x y:";
         cin >> x >> y;
     } while (checkForInputError());
-    return Coordinates(x, y);
+    return {x, y};
 }
 
 Orientation inputOrientation()

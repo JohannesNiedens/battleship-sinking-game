@@ -1,5 +1,5 @@
-#ifndef BLATT3_INIT_H
-#define BLATT3_INIT_H
+#ifndef BATTLESHIP_INIT_H
+#define BATTLESHIP_INIT_H
 
 
 #include <string>
