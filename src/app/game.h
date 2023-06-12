@@ -1,5 +1,5 @@
-#ifndef BLATT3_GAME_H
-#define BLATT3_GAME_H
+#ifndef BATTLESHIP_GAME_H
+#define BATTLESHIP_GAME_H
 
 
 #include <vector>
